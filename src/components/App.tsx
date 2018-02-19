@@ -1,4 +1,5 @@
 import * as React from "react";
+import Game from "./Game";
 
 interface IProps {
   compiler: string;
@@ -7,7 +8,12 @@ interface IProps {
 
 class App extends React.Component<IProps, {}> {
   render() {
-    return <h1>Voice Scramble test </h1>;
+    return (
+      <main>
+        <h1>Voice Scramble test</h1>
+        <Game />
+      </main>
+    );
   }
 }
 
