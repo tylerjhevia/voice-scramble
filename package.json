@@ -4,9 +4,26 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "webpack-dev-server",
+    "start": "npm run watch &  webpack-dev-server --content-base ./ --hot"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@types/react": "^16.0.38",
+    "@types/react-dom": "^16.0.4",
+    "common-english-words": "0.0.6",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "webpack": "^3.11.0"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
+    "babel-loader": "^7.1.2",
+    "react-hot-loader": "^3.1.3",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.7.2",
+    "webpack-dev-server": "^2.11.1"
+  }
 }
