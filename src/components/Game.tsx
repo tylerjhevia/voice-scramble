@@ -35,9 +35,12 @@ export default class Game extends React.Component<IProps, IState> {
   chooseRandomWord(words: string[]): void {
     const randomIndex = Math.round(Math.random() * words.length);
     const randomWord = words[randomIndex];
+
     console.log("random word: ", randomWord);
     this.setState({ answer: randomWord });
   }
+
+  // add method to display jumbled word
 
   updateGuess(e: any) {
     this.setState({ currentGuess: e.target.value });
@@ -60,7 +63,7 @@ export default class Game extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <section>
+      <section className="game">
         <h3>Unscramble this word!</h3>
         <Controls
           resetGame={this.resetGame}

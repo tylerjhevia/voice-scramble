@@ -1,1 +1,17 @@
+.game {
+  display: flex;
 
+  align-items: center;
+  justify-content: space-evenly;
+
+  flex-direction: column;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+h3 {
+  color: #324a5f;
+  font-size: 24px;
+}
