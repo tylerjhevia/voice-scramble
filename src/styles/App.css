@@ -1,0 +1,17 @@
+main {
+  background-color: #f0ead6;
+
+  display: grid;
+  grid-template-columns: 20vw 60vw 20vw;
+  grid-template-rows: 20vh 40vh 30vh 10vh;
+}
+
+h1 {
+  grid-column-start: 2;
+  grid-row-start: 1;
+
+  color: #324a5f;
+  font-size: 50px;
+  margin: auto;
+  text-align: center;
+}

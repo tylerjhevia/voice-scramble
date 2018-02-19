@@ -1,0 +1,52 @@
+.controls {
+  grid-column-start: 2;
+  grid-row-start: 3;
+
+  height: 400px;
+  width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: space-around;
+}
+
+input,
+button {
+  border: none;
+  outline: none;
+
+  height: 50px;
+  width: 350px;
+
+  font-size: 36px;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+input {
+  border-bottom: 2px solid gray;
+  color: orange;
+}
+
+input:active,
+input:focus {
+  outline: none;
+}
+
+button {
+  background-color: #ccc9dc;
+  color: #1b2a41;
+}
+
+button:hover {
+  background-color: #1b2a41;
+  color: #ccc9dc;
+  cursor: pointer;
+
+  transform: ease-in-out;
+
+  transition-duration: 0.3s;
+}
