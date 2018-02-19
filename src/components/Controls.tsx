@@ -5,6 +5,8 @@ interface IProps {
   resetGame: Function;
   updateGuess: Function;
   submitGuess: Function;
+  checkKey: Function;
+  currentGuess: string;
 }
 
 export default class Controls extends React.Component<IProps, {}> {
@@ -13,7 +15,13 @@ export default class Controls extends React.Component<IProps, {}> {
   }
 
   render(): JSX.Element {
-    const { resetGame, updateGuess, submitGuess } = this.props;
+    const {
+      resetGame,
+      updateGuess,
+      submitGuess,
+      currentGuess,
+      checkKey
+    } = this.props;
 
     return (
       <section className="controls">
@@ -21,6 +29,8 @@ export default class Controls extends React.Component<IProps, {}> {
           placeholder="Enter guess"
           className="current-guess"
           onChange={(e: any) => updateGuess(e)}
+          onKeyPress={e => checkKey(e)}
+          value={currentGuess}
         />
 
         <button className="reset" onClick={() => resetGame()}>

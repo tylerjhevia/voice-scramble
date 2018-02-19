@@ -8,6 +8,7 @@ interface IProps {}
 interface IState {
   answer: string;
   currentGuess: string;
+  scrambledAnswer: string;
 }
 
 export default class Game extends React.Component<IProps, IState> {
@@ -15,13 +16,15 @@ export default class Game extends React.Component<IProps, IState> {
     super(props);
     this.state = {
       answer: "",
-      currentGuess: ""
+      currentGuess: "",
+      scrambledAnswer: ""
     };
     this.fiveLetterGame = this.fiveLetterGame.bind(this);
     this.chooseRandomWord = this.chooseRandomWord.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.updateGuess = this.updateGuess.bind(this);
     this.submitGuess = this.submitGuess.bind(this);
+    this.checkKey = this.checkKey.bind(this);
   }
   componentDidMount() {
     this.fiveLetterGame();
@@ -37,16 +40,36 @@ export default class Game extends React.Component<IProps, IState> {
     const randomWord = words[randomIndex];
 
     console.log("random word: ", randomWord);
+    this.scrambleWord(randomWord);
     this.setState({ answer: randomWord });
   }
 
-  // add method to display jumbled word
+  scrambleWord(word: string) {
+    let splitWord = word.split("");
+    const length = splitWord.length;
+    for (let i = length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      var temp = splitWord[i];
+      splitWord[i] = splitWord[j];
+      splitWord[j] = temp;
+    }
+    this.setState({
+      scrambledAnswer: splitWord.join("")
+    });
+  }
 
   updateGuess(e: any) {
     this.setState({ currentGuess: e.target.value });
   }
 
-  submitGuess() {
+  checkKey(e: any): void {
+    console.log(e.key);
+    if (e.key === "Enter") {
+      this.submitGuess();
+    }
+  }
+
+  submitGuess(): void {
     const currentGuess = this.state.currentGuess;
     const answer = this.state.answer;
     if (currentGuess === answer) {
@@ -54,21 +77,27 @@ export default class Game extends React.Component<IProps, IState> {
       this.resetGame();
     } else {
       alert("Wrong! Guess again.");
+      this.setState({ currentGuess: "" });
     }
   }
 
-  resetGame() {
+  resetGame(): void {
     this.fiveLetterGame();
+    this.setState({ currentGuess: "" });
   }
 
   render(): JSX.Element {
+    const { currentGuess, scrambledAnswer } = this.state;
     return (
       <section className="game">
         <h3>Unscramble this word!</h3>
+        <p className="scrambled">{scrambledAnswer}</p>
         <Controls
+          currentGuess={currentGuess}
           resetGame={this.resetGame}
           updateGuess={this.updateGuess}
           submitGuess={this.submitGuess}
+          checkKey={this.checkKey}
         />
       </section>
     );
