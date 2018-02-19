@@ -13,10 +13,12 @@
   "dependencies": {
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
-    "common-english-words": "0.0.6",
+    "css-loader": "^0.28.9",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "webpack": "^3.11.0"
+    "style-loader": "^0.20.2",
+    "webpack": "^3.11.0",
+    "word-list-json": "^0.2.0"
   },
   "devDependencies": {
     "awesome-typescript-loader": "^3.4.1",
