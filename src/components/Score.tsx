@@ -3,10 +3,18 @@ import "../styles/Score.css";
 
 interface IProps {
   score: number;
+  scoreMultiplier: number;
 }
 
 const Score = (props: IProps) => {
-  return <p>{props.score}</p>;
+  return (
+    <div className="score-container">
+      <p>{props.score}</p>
+      <p>
+        <strong>X</strong> {props.scoreMultiplier}
+      </p>
+    </div>
+  );
 };
 
 export default Score;
