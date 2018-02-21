@@ -27,8 +27,10 @@ button {
 }
 
 input {
+  background-color: #f0ead6;
   border-bottom: 2px solid gray;
-  color: orange;
+  color: #0c1821;
+  font-weight: bold;
 }
 
 input:active,
@@ -49,4 +51,20 @@ button:hover {
   transform: ease-in-out;
 
   transition-duration: 0.3s;
+}
+
+.selector-container {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.five,
+.six {
+  font-size: 14px;
+  height: 50px;
+  width: 150px;
+
+  margin: 10px;
 }
