@@ -36,6 +36,16 @@ export default class Game extends React.Component<IProps, IState> {
   }
   componentDidMount() {
     this.startGame(5);
+    this.getScoreFromLocalStorage();
+  }
+
+  getScoreFromLocalStorage() {
+    let score;
+    if (localStorage.score) {
+      score = localStorage.getItem("score");
+    }
+    score = parseInt(score);
+    this.setState({ score: score });
   }
 
   startGame(length: number): void {
@@ -96,6 +106,11 @@ export default class Game extends React.Component<IProps, IState> {
         feedback: "Wrong! Guess again."
       });
     }
+    this.storeScore(newScore);
+  }
+
+  storeScore(score: number) {
+    localStorage.setItem("score", JSON.stringify(score));
   }
 
   resetGame(): void {
