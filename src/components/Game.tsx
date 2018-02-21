@@ -13,6 +13,7 @@ interface IState {
   scrambledAnswer: string;
   wordLength: number;
   score: number;
+  scoreMultiplier: number;
 }
 
 export default class Game extends React.Component<IProps, IState> {
@@ -24,6 +25,7 @@ export default class Game extends React.Component<IProps, IState> {
       feedback: null,
       scrambledAnswer: "",
       score: null,
+      scoreMultiplier: 1,
       wordLength: null
     };
     this.startGame = this.startGame.bind(this);
@@ -91,18 +93,25 @@ export default class Game extends React.Component<IProps, IState> {
   }
 
   submitGuess(): void {
-    const { currentGuess, score, answer } = this.state;
+    const { currentGuess, score, answer, scoreMultiplier } = this.state;
     let newScore = score;
+    let newMultiplier = scoreMultiplier;
 
     if (currentGuess === answer) {
-      newScore++;
-      this.setState({ score: newScore, feedback: "You got it!" });
+      newMultiplier++;
+      newScore += newMultiplier;
+      this.setState({
+        score: newScore,
+        feedback: "You got it!",
+        scoreMultiplier: newMultiplier
+      });
       this.resetGame();
     } else {
       newScore--;
       this.setState({
         currentGuess: "",
         score: newScore,
+        scoreMultiplier: 1,
         feedback: "Wrong! Guess again."
       });
     }
@@ -119,7 +128,13 @@ export default class Game extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    const { currentGuess, scrambledAnswer, score, feedback } = this.state;
+    const {
+      currentGuess,
+      scrambledAnswer,
+      score,
+      feedback,
+      scoreMultiplier
+    } = this.state;
 
     return (
       <section className="game">
@@ -134,7 +149,7 @@ export default class Game extends React.Component<IProps, IState> {
           checkKey={this.checkKey}
           startGame={this.startGame}
         />
-        <Score score={score} />
+        <Score score={score} scoreMultiplier={scoreMultiplier} />
       </section>
     );
   }
