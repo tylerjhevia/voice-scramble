@@ -52,3 +52,19 @@ button:hover {
 
   transition-duration: 0.3s;
 }
+
+.selector-container {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.five,
+.six {
+  font-size: 14px;
+  height: 50px;
+  width: 150px;
+
+  margin: 10px;
+}

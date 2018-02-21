@@ -1,5 +1,6 @@
 import * as React from "react";
 import Controls from "./Controls";
+import Score from "./Score";
 const words = require("word-list-json");
 import "../styles/Game.css";
 
@@ -8,7 +9,10 @@ interface IProps {}
 interface IState {
   answer: string;
   currentGuess: string;
+  feedback: string;
   scrambledAnswer: string;
+  wordLength: number;
+  score: number;
 }
 
 export default class Game extends React.Component<IProps, IState> {
@@ -17,22 +21,27 @@ export default class Game extends React.Component<IProps, IState> {
     this.state = {
       answer: "",
       currentGuess: "",
-      scrambledAnswer: ""
+      feedback: null,
+      scrambledAnswer: "",
+      score: null,
+      wordLength: null
     };
-    this.fiveLetterGame = this.fiveLetterGame.bind(this);
+    this.startGame = this.startGame.bind(this);
     this.chooseRandomWord = this.chooseRandomWord.bind(this);
     this.resetGame = this.resetGame.bind(this);
     this.updateGuess = this.updateGuess.bind(this);
     this.submitGuess = this.submitGuess.bind(this);
     this.checkKey = this.checkKey.bind(this);
+    this.startGame = this.startGame.bind(this);
   }
   componentDidMount() {
-    this.fiveLetterGame();
+    this.startGame(5);
   }
 
-  fiveLetterGame(): void {
-    const wordPool = words.filter((word: string) => word.length === 5);
+  startGame(length: number): void {
+    const wordPool = words.filter((word: string) => word.length === length);
     this.chooseRandomWord(wordPool);
+    this.setState({ wordLength: length });
   }
 
   chooseRandomWord(words: string[]): void {
@@ -47,12 +56,14 @@ export default class Game extends React.Component<IProps, IState> {
   scrambleWord(word: string) {
     let splitWord = word.split("");
     const length = splitWord.length;
+
     for (let i = length - 1; i > 0; i--) {
       let j = Math.floor(Math.random() * (i + 1));
       var temp = splitWord[i];
       splitWord[i] = splitWord[j];
       splitWord[j] = temp;
     }
+
     this.setState({
       scrambledAnswer: splitWord.join("")
     });
@@ -63,42 +74,52 @@ export default class Game extends React.Component<IProps, IState> {
   }
 
   checkKey(e: any): void {
-    console.log(e.key);
     if (e.key === "Enter") {
       this.submitGuess();
     }
+    // Figure out a hotkey for resetting the game.
   }
 
   submitGuess(): void {
-    const currentGuess = this.state.currentGuess;
-    const answer = this.state.answer;
+    const { currentGuess, score, answer } = this.state;
+    let newScore = score;
+
     if (currentGuess === answer) {
-      alert("Correct!");
+      newScore++;
+      this.setState({ score: newScore, feedback: "You got it!" });
       this.resetGame();
     } else {
-      alert("Wrong! Guess again.");
-      this.setState({ currentGuess: "" });
+      newScore--;
+      this.setState({
+        currentGuess: "",
+        score: newScore,
+        feedback: "Wrong! Guess again."
+      });
     }
   }
 
   resetGame(): void {
-    this.fiveLetterGame();
+    this.startGame(this.state.wordLength);
     this.setState({ currentGuess: "" });
   }
 
   render(): JSX.Element {
-    const { currentGuess, scrambledAnswer } = this.state;
+    const { currentGuess, scrambledAnswer, score, feedback } = this.state;
+
     return (
       <section className="game">
         <h3>Unscramble this word!</h3>
         <p className="scrambled">{scrambledAnswer}</p>
+        <p className="feedback">{feedback}</p>
         <Controls
           currentGuess={currentGuess}
           resetGame={this.resetGame}
           updateGuess={this.updateGuess}
           submitGuess={this.submitGuess}
           checkKey={this.checkKey}
+          startGame={this.startGame}
         />
+        <Score score={score} />
       </section>
     );
   }
