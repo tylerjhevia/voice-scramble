@@ -1,8 +1,8 @@
-import * as React from "react";
-import Controls from "./Controls";
-import Score from "./Score";
-const words = require("word-list-json");
-import "../styles/Game.css";
+import * as React from 'react';
+import Controls from './Controls';
+import Score from './Score';
+const words = require('word-list-json');
+import '../styles/Game.css';
 
 interface IProps {}
 
@@ -20,11 +20,11 @@ export default class Game extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
     this.state = {
-      answer: "",
-      currentGuess: "",
+      answer: '',
+      currentGuess: '',
       feedback: null,
-      scrambledAnswer: "",
-      score: null,
+      scrambledAnswer: '',
+      score: 0,
       scoreMultiplier: 1,
       wordLength: null
     };
@@ -38,14 +38,15 @@ export default class Game extends React.Component<IProps, IState> {
   }
   componentDidMount() {
     this.startGame(5);
-    this.getScoreFromLocalStorage();
+    // this.getScoreFromLocalStorage();
   }
 
   getScoreFromLocalStorage() {
     let score;
     if (localStorage.score) {
-      score = localStorage.getItem("score");
+      score = localStorage.getItem('score');
     }
+    console.log('score coming out of localStorage: ', score);
     score = parseInt(score);
     this.setState({ score: score });
   }
@@ -60,13 +61,13 @@ export default class Game extends React.Component<IProps, IState> {
     const randomIndex = Math.round(Math.random() * words.length);
     const randomWord = words[randomIndex];
 
-    console.log("random word: ", randomWord);
+    console.log('random word: ', randomWord);
     this.scrambleWord(randomWord);
     this.setState({ answer: randomWord });
   }
 
   scrambleWord(word: string) {
-    let splitWord = word.split("");
+    let splitWord = word.split('');
     const length = splitWord.length;
 
     for (let i = length - 1; i > 0; i--) {
@@ -77,7 +78,7 @@ export default class Game extends React.Component<IProps, IState> {
     }
 
     this.setState({
-      scrambledAnswer: splitWord.join("")
+      scrambledAnswer: splitWord.join('')
     });
   }
 
@@ -86,7 +87,7 @@ export default class Game extends React.Component<IProps, IState> {
   }
 
   checkKey(e: any): void {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       this.submitGuess();
     }
     // Figure out a hotkey for resetting the game.
@@ -98,33 +99,34 @@ export default class Game extends React.Component<IProps, IState> {
     let newMultiplier = scoreMultiplier;
 
     if (currentGuess === answer) {
-      newMultiplier++;
       newScore += newMultiplier;
+      newMultiplier++;
       this.setState({
         score: newScore,
-        feedback: "You got it!",
+        feedback: 'You got it!',
         scoreMultiplier: newMultiplier
       });
       this.resetGame();
     } else {
       newScore--;
       this.setState({
-        currentGuess: "",
+        currentGuess: '',
         score: newScore,
         scoreMultiplier: 1,
-        feedback: "Wrong! Guess again."
+        feedback: 'Wrong! Guess again.'
       });
     }
+
     this.storeScore(newScore);
   }
 
   storeScore(score: number) {
-    localStorage.setItem("score", JSON.stringify(score));
+    localStorage.setItem('score', JSON.stringify(score));
   }
 
   resetGame(): void {
     this.startGame(this.state.wordLength);
-    this.setState({ currentGuess: "" });
+    this.setState({ currentGuess: '' });
   }
 
   render(): JSX.Element {
@@ -139,8 +141,12 @@ export default class Game extends React.Component<IProps, IState> {
     return (
       <section className="game">
         <h3>Unscramble this word!</h3>
-        <p className="scrambled">{scrambledAnswer}</p>
-        <p className="feedback">{feedback}</p>
+        <p className="scrambled">
+          {scrambledAnswer}
+        </p>
+        <p className="feedback">
+          {feedback}
+        </p>
         <Controls
           currentGuess={currentGuess}
           resetGame={this.resetGame}
