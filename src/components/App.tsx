@@ -1,6 +1,7 @@
-import * as React from "react";
-import Game from "./Game";
-import "../styles/App.css";
+import * as React from 'react';
+import Game from './Game';
+import Board from './Board';
+import '../styles/App.css';
 
 interface IProps {
   compiler: string;
@@ -12,7 +13,7 @@ class App extends React.Component<IProps, {}> {
     return (
       <main>
         <h1>Voice Scramble</h1>
-        <Game />
+        <Board boardSize={5} />
       </main>
     );
   }

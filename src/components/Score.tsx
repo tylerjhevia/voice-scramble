@@ -1,5 +1,5 @@
-import * as React from "react";
-import "../styles/Score.css";
+import * as React from 'react';
+import '../styles/Score.css';
 
 interface IProps {
   score: number;
@@ -7,9 +7,12 @@ interface IProps {
 }
 
 const Score = (props: IProps) => {
+  console.log('props: ', props);
   return (
     <div className="score-container">
-      <p>{props.score}</p>
+      <p>
+        {props.score}
+      </p>
       <p>
         <strong>X</strong> {props.scoreMultiplier}
       </p>
