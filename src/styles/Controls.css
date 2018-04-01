@@ -17,7 +17,7 @@ button {
   border: none;
   outline: none;
 
-  height: 25px;
+  height: 20px;
   width: 350px;
 
   font-size: 20px;
@@ -53,18 +53,15 @@ button:hover {
   transition-duration: 0.3s;
 }
 
+.actions,
 .selector-container {
   display: flex;
-
-  align-items: center;
   justify-content: space-between;
+  width: 350px;
 }
 
-.five,
-.six {
-  font-size: 14px;
-  height: 50px;
-  width: 150px;
-
-  margin: 10px;
+.actions button,
+.selector-container button {
+  height: 100%;
+  width: 45%;
 }
