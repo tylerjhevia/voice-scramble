@@ -14,7 +14,7 @@ const Score = (props: IProps) => {
         {props.score}
       </p>
       <p>
-        <strong>X</strong> {props.scoreMultiplier}
+        <strong>Score Multiplier:</strong> {props.scoreMultiplier}
       </p>
     </div>
   );

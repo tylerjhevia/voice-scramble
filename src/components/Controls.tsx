@@ -1,5 +1,5 @@
-import * as React from "react";
-import "../styles/Controls.css";
+import * as React from 'react';
+import '../styles/Controls.css';
 
 interface IProps {
   resetGame: Function;
@@ -35,13 +35,15 @@ export default class Controls extends React.Component<IProps, {}> {
           value={currentGuess}
         />
 
-        <button className="submit" onClick={() => submitGuess()}>
-          Submit Guess
-        </button>
+        <div className="actions">
+          <button className="submit" onClick={() => submitGuess()}>
+            Submit
+          </button>
 
-        <button className="reset" onClick={() => resetGame()}>
-          Reset
-        </button>
+          <button className="reset" onClick={() => resetGame()}>
+            Reset
+          </button>
+        </div>
 
         <div className="selector-container">
           <button className="five" onClick={() => startGame(5)}>
